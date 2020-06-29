@@ -910,7 +910,7 @@ class connman:
             self.struct['/net/connman/technology/wifi']['settings']['regdom']['values'] = regList
             if os.path.isfile(self.REGDOMAIN_CONF):
                 regLine = open(self.REGDOMAIN_CONF).readline().rstrip()
-                regCode = '(%s)' % regLine[-2:]
+                regCode = f'({regLine[-2:]})'
                 regValue = next((v for v in regList if regCode in v), self.REGDOMAIN_DEFAULT)
             else:
                 regValue = self.REGDOMAIN_DEFAULT
@@ -1216,8 +1216,8 @@ class connman:
                     regSelect = str((kwargs['listItem']).getProperty('value'))
                     regCode = regSelect[-3:-1]
                     with open(self.REGDOMAIN_CONF, 'w') as regfile:
-                        regfile.write('REGDOMAIN=%s\n' % regCode)
-                    regScript = 'iw reg set %s' % regCode
+                        regfile.write(f'REGDOMAIN={regCode}\n')
+                    regScript = f'iw reg set {regCode}'
                 self.oe.execute(regScript)
                 self.set_value(kwargs['listItem'])
             self.oe.set_busy(0)
@@ -1402,7 +1402,7 @@ class connman:
                     os.makedirs(os.path.dirname(self.WAIT_CONF_FILE))
                 wait_conf = open(self.WAIT_CONF_FILE, 'w')
                 wait_conf.write('WAIT_NETWORK="true"\n')
-                wait_conf.write('WAIT_NETWORK_TIME="%s"\n' % self.struct['advanced']['settings']['wait_for_network_time']['value'])
+                wait_conf.write(f"WAIT_NETWORK_TIME=\"{self.struct['advanced']['settings']['wait_for_network_time']['value']}\"\n")
                 wait_conf.close()
             self.oe.dbg_log('connman::set_network_wait', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
