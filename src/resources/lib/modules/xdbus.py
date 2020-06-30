@@ -22,7 +22,7 @@ class xdbus:
             self.dbusSystemBus = self.oe.dbusSystemBus
             self.oe.dbg_log('xdbus::__init__', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
-            self.oe.dbg_log('xdbus::__init__', 'ERROR: (' + repr(e) + ')', self.oe.LOGERROR)
+            self.oe.dbg_log('xdbus::__init__', f'ERROR: ({repr(e)})', self.oe.LOGERROR)
 
     def start_service(self):
         try:
@@ -31,7 +31,7 @@ class xdbus:
             self.dbusMonitor.start()
             self.oe.dbg_log('xdbus::start_service', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
-            self.oe.dbg_log('xdbus::start_service', 'ERROR: (' + repr(e) + ')', self.oe.LOGERROR)
+            self.oe.dbg_log('xdbus::start_service', f'ERROR: ({repr(e)})', self.oe.LOGERROR)
 
     def stop_service(self):
         try:
@@ -41,7 +41,7 @@ class xdbus:
                 del self.dbusMonitor
             self.oe.dbg_log('xdbus::stop_service', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
-            self.oe.dbg_log('xdbus::stop_service', 'ERROR: (' + repr(e) + ')')
+            self.oe.dbg_log('xdbus::stop_service', f'ERROR: ({repr(e)})')
 
     def exit(self):
         pass
@@ -53,7 +53,7 @@ class xdbus:
             self.start_service()
             self.oe.dbg_log('xdbus::restart', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
-            self.oe.dbg_log('xdbus::restart', 'ERROR: (' + repr(e) + ')')
+            self.oe.dbg_log('xdbus::restart', f'ERROR: ({repr(e)})')
 
 
 class dbusMonitor(threading.Thread):
@@ -70,7 +70,7 @@ class dbusMonitor(threading.Thread):
             threading.Thread.__init__(self)
             self.oe.dbg_log('xdbus::dbusMonitor::__init__', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
-            self.oe.dbg_log('xdbus::dbusMonitor::__init__', 'ERROR: (' + repr(e) + ')', self.oe.LOGERROR)
+            self.oe.dbg_log('xdbus::dbusMonitor::__init__', f'ERROR: ({repr(e)})', self.oe.LOGERROR)
 
     def run(self):
         try:
@@ -89,7 +89,7 @@ class dbusMonitor(threading.Thread):
                 pass
             self.oe.dbg_log('xdbus::dbusMonitor::run', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
-            self.oe.dbg_log('xdbus::dbusMonitor::run', 'ERROR: (' + repr(e) + ')', self.oe.LOGERROR)
+            self.oe.dbg_log('xdbus::dbusMonitor::run', f'ERROR: ({repr(e)})', self.oe.LOGERROR)
 
     def stop(self):
         try:
@@ -100,4 +100,4 @@ class dbusMonitor(threading.Thread):
                 monitor = None
             self.oe.dbg_log('xdbus::dbusMonitor::stop_service', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
-            self.oe.dbg_log('xdbus::dbusMonitor::stop_service', 'ERROR: (' + repr(e) + ')')
+            self.oe.dbg_log('xdbus::dbusMonitor::stop_service', f'ERROR: ({repr(e)})')
