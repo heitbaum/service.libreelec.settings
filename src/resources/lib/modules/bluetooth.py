@@ -96,7 +96,7 @@ class bluetooth:
             self.oe.dbg_log('bluetooth::init_adapter', 'enter_function', self.oe.LOGDEBUG)
             dbusBluezManager = dbus.Interface(self.oe.dbusSystemBus.get_object('org.bluez', '/'), 'org.freedesktop.DBus.ObjectManager')
             dbusManagedObjects = dbusBluezManager.GetManagedObjects()
-            for (path, ifaces) in dbusManagedObjects.items():
+            for (path, ifaces) in list(dbusManagedObjects.items()):
                 self.dbusBluezAdapter = ifaces.get('org.bluez.Adapter1')
                 if self.dbusBluezAdapter != None:
                     self.dbusBluezAdapter = dbus.Interface(self.oe.dbusSystemBus.get_object('org.bluez', path), 'org.bluez.Adapter1')
@@ -174,7 +174,7 @@ class bluetooth:
             devices = {}
             dbusBluezManager = dbus.Interface(self.oe.dbusSystemBus.get_object('org.bluez', '/'), 'org.freedesktop.DBus.ObjectManager')
             managedObjects = dbusBluezManager.GetManagedObjects()
-            for (path, interfaces) in managedObjects.items():
+            for (path, interfaces) in list(managedObjects.items()):
                 if 'org.bluez.Device1' in interfaces:
                     devices[path] = interfaces['org.bluez.Device1']
             managedObjects = None

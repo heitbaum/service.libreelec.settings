@@ -291,7 +291,7 @@ class connmanService(object):
             self.service = dbus.Interface(self.oe.dbusSystemBus.get_object('net.connman', servicePath), 'net.connman.Service')
             self.service_properties = self.service.GetProperties()
             for entry in sorted(self.datamap):
-                for (key, value) in self.datamap[entry].items():
+                for (key, value) in list(self.datamap[entry].items()):
                     if self.struct[value]['type'] == 'Boolean':
                         if key in self.service_properties:
                             self.struct[value]['settings'][value]['value'] = self.service_properties[key]
