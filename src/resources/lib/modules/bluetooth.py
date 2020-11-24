@@ -280,7 +280,11 @@ class bluetooth:
             self.oe.dbg_log('bluetooth::trust_device::path', repr(path), self.oe.LOGDEBUG)
             self.oe.set_busy(1)
             prop = dbus.Interface(self.oe.dbusSystemBus.get_object('org.bluez', path), 'org.freedesktop.DBus.Properties')
-            prop.Set('org.bluez.Device1', 'Trusted', dbus.Boolean(1))
+# below erroring with - http://ix.io/2FhE
+#   dbus.exceptions.DBusException: org.freedesktop.DBus.Error.UnknownObject: 
+#   Method "Set" with signature "ssb" on interface "org.freedesktop.DBus.Properties" 
+#   doesn't exist
+#            prop.Set('org.bluez.Device1', 'Trusted', dbus.Boolean(1))
             prop = None
             self.oe.set_busy(0)
             self.oe.dbg_log('bluetooth::trust_device', 'exit_function', self.oe.LOGDEBUG)
@@ -370,7 +374,9 @@ class bluetooth:
             self.oe.set_busy(1)
             self.oe.dbg_log('bluetooth::remove_device->entry::', listItem.getProperty('entry'), self.oe.LOGDEBUG)
             path = listItem.getProperty('entry')
-            self.dbusBluezAdapter.RemoveDevice(path)
+# below erroring with - http://ix.io/2FhE
+# dbus.exceptions.DBusException: org.bluez.Error.DoesNotExist: Does Not Exist
+#            self.dbusBluezAdapter.RemoveDevice(path)
             self.disable_device_standby(listItem)
             self.menu_connections(None)
             self.oe.set_busy(0)
@@ -593,8 +599,10 @@ class bluetooth:
             select_window = xbmcgui.Dialog()
             title = self.oe._(32012)
             result = select_window.select(title, items)
-            if result >= 0:
-                getattr(self, actions[result])(listItem)
+# below erroring with - http://ix.io/2FhE
+# AttributeError: 'bluetooth' object has no attribute 'disconnect_device'
+#            if result >= 0:
+#                getattr(self, actions[result])(listItem)
             self.oe.dbg_log('bluetooth::show_options', 'exit_function', self.oe.LOGDEBUG)
         except Exception as e:
             self.oe.dbg_log('bluetooth::show_options', 'ERROR: (' + repr(e) + ')', self.oe.LOGERROR)
