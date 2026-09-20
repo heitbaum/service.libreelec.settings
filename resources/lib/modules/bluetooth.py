@@ -670,7 +670,7 @@ class Bluez_Agent(dbus_bluez.Agent):
             self.reject('Passkey does not match')
 
     @log.log_function()
-    def RequestAuthorization(self, device):
+    def request_authorization(self, device):
         xbmcDialog = xbmcgui.Dialog()
         answer = xbmcDialog.yesno('Bluetooth', 'Accept pairing?')
         if answer == 1:
@@ -679,7 +679,7 @@ class Bluez_Agent(dbus_bluez.Agent):
             self.reject('Pairing rejected')
 
     @log.log_function()
-    def Cancel(self):
+    def cancel(self):
         if hasattr(self.parent, 'pinkey_window'):
             self.parent.close_pinkey_window()
 
