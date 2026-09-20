@@ -107,7 +107,7 @@ class Agent(dbus_utils.Agent):
         reply[0] = await dbus_utils.run_dialog(self.request_pincode, device)
 
     def reject(self, message):
-        raise dbussy.DBusError(ERROR_REJECTED, message)
+        raise ravel.ErrorReturn(ERROR_REJECTED, message)
 
 class Listener(object):
 
