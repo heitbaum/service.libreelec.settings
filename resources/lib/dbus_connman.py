@@ -66,8 +66,12 @@ class Agent(dbus_utils.Agent):
         out_signature='',
         arg_keys=['service', 'url']
     )
-    def RequestBrowser(self, path, url):
-        raise NotImplementedError
+    def RequestBrowser(self, service, url):
+        self.request_browser(service, url)
+
+    def request_browser(self, service, url):
+        raise ravel.ErrorReturn(
+            ERROR_AGENT_CANCELLED, 'Browser login is not supported')
 
     @ravel.method(
         in_signature='oa{sv}',
