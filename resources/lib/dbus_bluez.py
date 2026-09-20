@@ -46,6 +46,9 @@ class Agent(dbus_utils.Agent):
     def Cancel(self):
         self.cancel()
 
+    def cancel(self):
+        pass
+
     @ravel.method(
         in_signature='ouq',
         out_signature='',
